@@ -3,16 +3,10 @@ namespace Api\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Psr\Container\ContainerInterface;
+use Api\Controllers\BaseController;
 use Api\Models\Post;
 
-class PostsController {
-  protected $db;
-
-  public function __construct (ContainerInterface $container) {
-    $this->container = $container->get('db');
-  }
-
+class PostsController extends BaseController {
   // CREATE method
   public function create (Request $request, Response $response) {
     $formData = $request->getParsedBody();
