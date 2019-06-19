@@ -7,7 +7,6 @@ use Api\Controllers\BaseController;
 use Api\Models\Post;
 
 class PostsController extends BaseController {
-  // CREATE method
   public function create (Request $request, Response $response) {
     $formData = $request->getParsedBody();
     $post = new Post;
@@ -17,10 +16,10 @@ class PostsController extends BaseController {
 
     $post->save();
 
-    return $response;
+    $this->logger->info("POST '/posts'");
+    return $response = $response->withStatus(201);
   }
 
-  // READ method
   public function read (Request $request, Response $response, $args) {
     $id = $args['id'] ?? false;
 
@@ -28,10 +27,10 @@ class PostsController extends BaseController {
       ? Post::find($id)
       : Post::all();
 
-    return $response = $response->withJson($data);
+    $this->logger->info("GET '/posts'");
+    return $response->withJson($data);
   }
 
-  // UPDATE method
   public function update (Request $request, Response $response, $args) {
     $id = $args['id'];
     $formData = $request->getParsedBody();
@@ -44,15 +43,16 @@ class PostsController extends BaseController {
     $content && $post->content = filter_var($content, FILTER_SANITIZE_STRING);
     $post->save();
 
-    return $response;
+    $this->logger->info("PATCH '/posts/$id'");
+    return $response->withStatus(200);
   }
 
-  // DELETE method
   public function delete (Request $request, Response $response, $args) {
-    $id = $args['id'];
+    $id = $args['id'] ?? null;
 
     Post::where('id', $id)->delete();
 
-    return $response;
+    $this->logger->info("DELETE '/posts/$id'");
+    return $response->withStatus(200);
   }
 };

@@ -3,7 +3,8 @@
   "description": "A Slim Framework RESTful API example",
   "require": {
     "slim/slim": "^3.12",
-    "illuminate/database": "^5.8"
+    "illuminate/database": "^5.8",
+    "monolog/monolog": "^1.24"
   },
   "autoload": {
     "psr-4": {

@@ -4,7 +4,6 @@ return [
     'displayErrorDetails' => true,
     'addContentLengthHeader' => false,
 
-    // Config for illuminate/database dependency
     'db' => [
       'driver' => 'mysql',
       'host' => 'localhost',
@@ -14,6 +13,12 @@ return [
       'charset'   => 'utf8',
       'collation' => 'utf8_unicode_ci',
       'prefix'    => ''
+    ],
+
+    'logger' => [
+      'name' => 'slim-app',
+      'path' => __DIR__ . '/../../logs/app.log',
+      'level' => Monolog\Logger::DEBUG
     ]
   ]
 ];
