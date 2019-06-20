@@ -1,10 +1,11 @@
 <?php
 use Slim\App;
-use Api\Controllers\PostsController;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 return function (App $app) {
-  $app->post('/posts', PostsController::class . ':create');
-  $app->get('/posts[/{id}]', PostsController::class . ':read');
-  $app->patch('/posts/{id}', PostsController::class . ':update');
-  $app->delete('/posts/{id}', PostsController::class . ':delete');
+  $app->post('/posts', function (Request $request, Response $response, array $args) {
+    $posts = $this->post_service->getPosts($args);
+    return $this->post_responder->posts($response, $posts);
+  });
 };

@@ -7,6 +7,9 @@ $app = new Slim\App($settings);
 $dependencies = require __DIR__ . '/src/dependencies.php';
 $dependencies($app);
 
+$dependencies = require __DIR__ . '/src/services.php';
+$dependencies($app);
+
 $routes = require __DIR__ . '/src/routes.php';
 $routes($app);
 
