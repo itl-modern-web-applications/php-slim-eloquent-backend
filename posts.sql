@@ -29,15 +29,6 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 --
--- Sťahujem dáta pre tabuľku `posts`
---
-
-INSERT INTO `posts` (`id`, `title`, `content`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Upravený titulok prvého článku', 'Obsah prvého článku', '2019-06-19 13:28:28', '2019-06-19 13:39:07', NULL),
-(2, 'Titulok druhého článku', 'Obsah druhého článku', '2019-06-19 13:28:57', '2019-06-19 13:30:45', '2019-06-19 13:30:45'),
-(3, 'Titulok tretieho článku', 'Upravený obsah tretieho článku', '2019-06-19 13:29:07', '2019-06-19 13:30:19', NULL);
-
---
 -- Kľúče pre exportované tabuľky
 --
 

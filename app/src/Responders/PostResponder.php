@@ -1,10 +1,12 @@
 <?php
 namespace App\Responders;
 
-use Psr\Http\Message\ResponseInterface as Response;
-
 class PostResponder {
-  public function posts (Response $response, $data) {
+  public static function withStatus ($response, $status) {
+    return $response->withStatus($status);
+  }
+
+  public static function withJson ($response, $data) {
     return $response->withJson($data);
   }
 };

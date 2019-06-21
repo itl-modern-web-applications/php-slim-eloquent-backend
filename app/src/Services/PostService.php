@@ -1,26 +1,53 @@
 <?php
 namespace App\Services;
 
-use Api\Controllers\BaseController;
-use Api\Models\Post;
+use App\Models\Post;
 
 class PostService {
-  protected $db;
-  protected $logger;
+  // CREATE
+  public static function createPost ($request, $db, $logger) {
+    $data = $request->getParsedBody();
 
-  public function __construct ($db, $logger) {
-    $this->db = $db;
-    $this->logger = $logger;
+    $post = new Post;
+    $post->title = filter_var($data['title'], FILTER_SANITIZE_STRING);
+    $post->content = filter_var($data['content'], FILTER_SANITIZE_STRING);
+    $post->save();
+
+    $logger->info("POST '/posts'");
   }
 
-  public function getPosts ($args) {
+  // READ
+  public static function getPosts ($args, $db, $logger) {
     $id = $args['id'] ?? false;
 
     $data = $id
       ? Post::find($id)
       : Post::all();
 
-    $this->logger->info("GET '/posts'");
+    $logger->info("GET '/posts" . $id ? "/$id'" : "'");
     return $data;
+  }
+
+  // UPDATE
+  public static function updatePost ($request, $args, $db, $logger) {
+    $id = $args['id'];
+    $data = $request->getParsedBody();
+
+    $title = $data['title'] ?? false;
+    $content = $data['content'] ?? false;
+
+    $post = Post::find($id);
+    $title && $post->title = filter_var($title, FILTER_SANITIZE_STRING);
+    $content && $post->content = filter_var($content, FILTER_SANITIZE_STRING);
+    $post->save();
+
+    $logger->info("PATCH '/posts/$id'");
+  }
+
+  // DELETE
+  public static function deletePost ($args, $db, $logger) {
+    Post::where('id', $args['id'])->delete();
+
+    $logger->info("DELETE '/posts/" . $args['id'] . "'");
   }
 };

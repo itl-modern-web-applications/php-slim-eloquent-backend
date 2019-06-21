@@ -1,7 +1,5 @@
 <?php
 use Slim\App;
-use Illuminate\Contracts\Debug\ExceptionHandler as Exception;
-use Api\Classes\DatabaseExceptionsHandler as Handler;
 
 return function (App $app) {
   $container = $app->getContainer();
@@ -10,7 +8,6 @@ return function (App $app) {
     $capsule = new Illuminate\Database\Capsule\Manager;
 
     $capsule->addConnection($c->get('settings')['db']);
-    $capsule->getContainer()->singleton(Exception::class, Handler::class);
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
 
